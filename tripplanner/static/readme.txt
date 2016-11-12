@@ -1,0 +1,1 @@
+ADD Images,CSS and Javascript files to his folder
