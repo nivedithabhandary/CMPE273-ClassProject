@@ -1,1 +1,0 @@
-Add html files or templates to this folder
