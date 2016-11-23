@@ -1,6 +1,6 @@
-function GetDynamicTextBox() {
+function GetDynamicTextBox(count) {
     "use strict";
-    return '<div class="col-sm-8 col-sm-offset-3"><div class="form-group"><input type="text" class="form-control" id="vialocation" name="vialocation" placeholder="via Location"></div></div>';
+    return '<div class="col-sm-8 col-sm-offset-3"><div class="form-group"><input type="text" class="form-control" id="vialocation' + count + '" name="vialocation" placeholder="via Location"></div></div>';
 }
 
 
@@ -8,6 +8,7 @@ function GetDynamicTextBox() {
     "use strict"; // Start of use strict
 
     $(document).ready(function () {
+		var count = 0;
 
         // jQuery for page scrolling feature - requires jQuery Easing plugin
         $('a.page-scroll').bind('click', function (event) {
@@ -71,9 +72,11 @@ function GetDynamicTextBox() {
 
         //Adds dynamic textbox on plus icon click
         $('#addlocation').click(function () {
-
+			count++;
             //$('#vialocation').append('<div class="col-sm-8 col-sm-offset-3"><div class="form-group"><input type="text" class="form-control" id="vialocation" name="vialocation" placeholder="via Location"></div></div>');
-            $('#vialocation').append(GetDynamicTextBox());
+            $('#vialocation').append(GetDynamicTextBox(count));
+			var newEl = document.getElementById('vialocation' + count);			
+			var autocomplete = new google.maps.places.Autocomplete(newEl);
             console.log("Added Location Textbox");
         });
 
