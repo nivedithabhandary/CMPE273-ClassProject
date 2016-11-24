@@ -33,6 +33,7 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADhjYYCZSkbqdubylWMXHSUPF-maM16V8&libraries=places"></script>
 
 </head>
 
@@ -55,13 +56,10 @@
                         <a class="page-scroll" href="#plantrip"><i class="fa fa-car"></i>  Plan Trip</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="mylocations.html"><i class="fa fa-map-marker"></i>  My Locations</a>
-                    </li>
-                    <li>
                         <a class="page-scroll" href="#contact"><i class="fa fa-envelope"></i>  Contact Us</a>
                     </li>
                     <li>
-                        <a href="#"> <span class="glyphicon glyphicon-log-out"></span> Log Out</a>
+                      <a href="{{url_for('oauth.index')}}"> <span class="glyphicon glyphicon-log-out"></span> Login</a>
                     </li>
                 </ul>
             </div>
@@ -75,7 +73,7 @@
             <div class="header-content-inner">
                 <h1 id="homeHeading">Let us plan your trip</h1>
                 <hr>
-                <p>Provide us the locations you want to visit and we will find the cheapest route for Uber and Lyft</p>
+                <p>Provide us the locations you want to visit and we will find the cheapest route for Uber and Lyft </p>
                 <a href="#plantrip" class="btn btn-primary btn-xl page-scroll">Start</a>
             </div>
         </div>
@@ -172,7 +170,7 @@
 
     <!-- custom JavaScript -->
     <script src="../static/js/tripplanner.js"></script>
-
+	<script src="../static/js/autocomplete.js"></script>
 </body>
 
 </html>

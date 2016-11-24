@@ -1,22 +1,20 @@
-from flask import Flask, redirect, url_for, session
+from flask import Flask, redirect, url_for, session, current_app,render_template
 from flask_oauth import OAuth
- 
- 
+from flask import Blueprint
+import requests
+from urllib2 import Request, urlopen, URLError
+
+oauth = Blueprint('oauth', __name__)
+
 # You must configure these 3 values from Google APIs console
 # https://code.google.com/apis/console
-GOOGLE_CLIENT_ID = '<add>'
-GOOGLE_CLIENT_SECRET = '<add>'
+GOOGLE_CLIENT_ID = '50089541226-mj2f8be9dltp2htn5nmeek52l97s10j8.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = 'j6qS8ruVUghOW3oE4z3Tuhgr'
 REDIRECT_URI = '/oauth2callback'  # one of the Redirect URIs from Google APIs console
- 
-SECRET_KEY = 'development key'
-DEBUG = True
- 
-app = Flask(__name__)
-app.debug = DEBUG
-app.secret_key = SECRET_KEY
-oauth = OAuth()
- 
-google = oauth.remote_app('google',
+
+auth = OAuth()
+
+google = auth.remote_app('google',
                           base_url='https://www.google.com/accounts/',
                           authorize_url='https://accounts.google.com/o/oauth2/auth',
                           request_token_url=None,
@@ -28,58 +26,53 @@ google = oauth.remote_app('google',
                           consumer_key=GOOGLE_CLIENT_ID,
                           consumer_secret=GOOGLE_CLIENT_SECRET)
 
-@app.route('/dashboard')
+@oauth.route('/dashboard')
 def dashboard():
-    return 'Dashboard launched successfully!'
+    print 'User dashboard launched'
+    return render_template('userindex.html');
 
-@app.route('/')
+@oauth.route('/index', methods=['GET', 'POST'])
 def index():
     access_token = session.get('access_token')
     if access_token is None:
-        return redirect(url_for('login'))
- 
+        return redirect(url_for('oauth.login'))
+
     access_token = access_token[0]
-    from urllib2 import Request, urlopen, URLError
- 
+    profile_uri = 'https://www.googleapis.com/oauth2/v1/userinfo'
     headers = {'Authorization': 'OAuth '+access_token}
-    req = Request('https://www.googleapis.com/oauth2/v1/userinfo',
-                  None, headers)
+    req = Request(profile_uri,None, headers)
     try:
         res = urlopen(req)
+        r = requests.get(profile_uri, params={'access_token': access_token})
+        session['email'] =  r.json()['email']
     except URLError, e:
         if e.code == 401:
             # Unauthorized - bad token
             session.pop('access_token', None)
-            return redirect(url_for('login'))
+            return redirect(url_for('oauth.login'))
         return res.read()
- 
-    #return res.read()
-    return redirect(url_for('dashboard'))
- 
- 
-@app.route('/login')
+
+    return redirect(url_for('oauth.dashboard'))
+
+@oauth.route('/login')
 def login():
-    callback=url_for('authorized', _external=True)
+    callback=url_for('oauth.authorized', _external=True)
     return google.authorize(callback=callback)
- 
- 
- 
-@app.route(REDIRECT_URI)
+
+@oauth.route('/logout')
+def logout():
+# Delete the user's profile and the credentials stored by oauth2.
+    del session['email']
+    session.modified = True
+    return redirect('/')
+
+@oauth.route(REDIRECT_URI)
 @google.authorized_handler
 def authorized(resp):
     access_token = resp['access_token']
     session['access_token'] = access_token, ''
-    return redirect(url_for('index'))
- 
- 
+    return redirect(url_for('oauth.index'))
+
 @google.tokengetter
 def get_access_token():
     return session.get('access_token')
- 
- 
-def main():
-    app.run()
- 
- 
-if __name__ == '__main__':
-    main()
