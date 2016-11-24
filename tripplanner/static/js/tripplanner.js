@@ -66,10 +66,17 @@ function plotChart(){
 	var data = [{
         x: ['UBER', 'LYFT'],
         y: [20, 15],
+		marker:{
+           color: ['rgba(31,186,214,1)', 'rgba(234, 11, 140,1)']
+		},
 		type: 'bar'
 	}];
-
-	Plotly.newPlot('uber_lyft_chart', data);
+	var layout = {
+		title: 'Look at the comparison!'
+	};		
+		
+	
+	Plotly.newPlot('uber_lyft_chart', data, layout);
 }
 
 
