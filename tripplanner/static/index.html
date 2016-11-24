@@ -26,8 +26,9 @@
 
     <!-- Theme CSS -->
     <link href="../static/css/tripplanner.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<link href="../static/css/visualization.css" rel="stylesheet">
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -130,7 +131,11 @@
             </div>
             <div class="container">
                 <div class="row">
-                    Add Visualization Here
+                    <div id ="canvas-map">
+					
+					</div>
+					<div id ="uber_lyft_chart">
+					</div>
                 </div>
             </div>
         </div>
@@ -169,8 +174,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
     <!-- custom JavaScript -->
+	
     <script src="../static/js/tripplanner.js"></script>
 	<script src="../static/js/autocomplete.js"></script>
+	
+	<!--Plotly Chart library-->
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    	
 </body>
 
 </html>
