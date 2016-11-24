@@ -1,1 +1,1 @@
-Add html files or templates to this folder
+Add jinja2 templates to this folder
