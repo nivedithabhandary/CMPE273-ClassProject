@@ -8,8 +8,8 @@ oauth = Blueprint('oauth', __name__)
 
 # You must configure these 3 values from Google APIs console
 # https://code.google.com/apis/console
-GOOGLE_CLIENT_ID = '50089541226-mj2f8be9dltp2htn5nmeek52l97s10j8.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = 'j6qS8ruVUghOW3oE4z3Tuhgr'
+GOOGLE_CLIENT_ID = 'add'
+GOOGLE_CLIENT_SECRET = 'add'
 REDIRECT_URI = '/oauth2callback'  # one of the Redirect URIs from Google APIs console
 
 auth = OAuth()
