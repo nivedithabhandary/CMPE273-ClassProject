@@ -1,77 +1,77 @@
-function plotMap() {	
-        var poly;
-		//To be populated with the optimized route from google maps Api
-        var PitStops = [{
-            name: "Stop 1",
-            latlng: new google.maps.LatLng(19.0760,72.8777)
+function plotMap() {
+    var poly;
+    //To be populated with the optimized route from google maps Api
+    var PitStops = [{
+        name: "Stop 1",
+        latlng: new google.maps.LatLng(19.0760, 72.8777)
         }, {
-            name: "Stop 2",
-            latlng: new google.maps.LatLng(12.9716,77.5946)
+        name: "Stop 2",
+        latlng: new google.maps.LatLng(12.9716, 77.5946)
         }, {
-            name: "Stop 3",
-            latlng: new google.maps.LatLng(12.9141,74.8560)
+        name: "Stop 3",
+        latlng: new google.maps.LatLng(12.9141, 74.8560)
         }, {
-            name: "Stop 4",
-            latlng: new google.maps.LatLng(13.0827,80.2707)
-        } ];
+        name: "Stop 4",
+        latlng: new google.maps.LatLng(13.0827, 80.2707)
+        }];
 
-		var icon = {
-			url: "../static/img/taxi.jpg", // url
-			scaledSize: new google.maps.Size(25, 25) // scaled size
-    
-		};
+    var icon = {
+        url: "../static/img/taxi.jpg", // url
+        scaledSize: new google.maps.Size(25, 25) // scaled size
 
-        var mapOptions = {
-            zoom: 0,
-            center: new google.maps.LatLng(0, 0),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-         };
+    };
 
-        var polyOptions = {
-            strokeColor: '#FF0000',
-            strokeOpacity: 1.0,
-            strokeWeight: 4
-        }
+    var mapOptions = {
+        zoom: 0,
+        center: new google.maps.LatLng(0, 0),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
 
-        var map = new google.maps.Map(document.getElementById("canvas-map"), mapOptions);
+    var polyOptions = {
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 4
+    }
 
-        poly = new google.maps.Polyline(polyOptions);
-        poly.setMap(map);
+    var map = new google.maps.Map(document.getElementById("canvas-map"), mapOptions);
 
-        var path = poly.getPath();
-     
-        var latlngbounds = new google.maps.LatLngBounds( );
+    poly = new google.maps.Polyline(polyOptions);
+    poly.setMap(map);
 
-        for ( var i = 0; i < PitStops.length; i++ ) {
-            new google.maps.Marker( {
-                position: PitStops[i].latlng,
-                map: map,
-				icon:icon,
-				animation: google.maps.Animation.DROP,
-                title: PitStops[i].name
-            } );
-            path.push(PitStops[i].latlng);
-            latlngbounds.extend( PitStops[i].latlng );
-        }
-        map.fitBounds( latlngbounds );
-    
+    var path = poly.getPath();
+
+    var latlngbounds = new google.maps.LatLngBounds();
+
+    for (var i = 0; i < PitStops.length; i++) {
+        new google.maps.Marker({
+            position: PitStops[i].latlng,
+            map: map,
+            icon: icon,
+            animation: google.maps.Animation.DROP,
+            title: PitStops[i].name
+        });
+        path.push(PitStops[i].latlng);
+        latlngbounds.extend(PitStops[i].latlng);
+    }
+    map.fitBounds(latlngbounds);
+
 }
 
-function plotChart(){
-	var data = [{
+function plotChart() {
+    var data = [{
         x: ['UBER', 'LYFT'],
         y: [20, 15],
-		marker:{
-           color: ['rgba(31,186,214,1)', 'rgba(234, 11, 140,1)']
-		},
-		type: 'bar'
+        marker: {
+            color: ['rgba(31,186,214,1)', 'rgba(234, 11, 140,1)']
+        },
+        type: 'bar'
 	}];
-	var layout = {
-		title: 'Look at the comparison!'
-	};		
-		
-	
-	Plotly.newPlot('uber_lyft_chart', data, layout);
+    var layout = {
+        title: 'Look at the comparison!'
+    };
+
+
+    Plotly.newPlot('uber_lyft_chart', data, layout);
 }
 
 
@@ -140,6 +140,17 @@ function plotChart(){
             }
         });
 
+        // User Login
+        $('#login').click(function () {
+            console.log("inside login function");
+            window.location.replace("/index");
+        });
+
+        //User Log Out
+        $('#logout').click(function () {
+            console.log("inside logout function");
+            window.location.replace("/logout");
+        });
 
 
         // Hide the Trip Map div when page is first loaded
@@ -152,12 +163,12 @@ function plotChart(){
 
             // On button click show the div meant for visualization
             $('#tripmap').show();
-			
-			//function to plot the route
-			plotMap();
-			
-			//function to plot comparison chart
-			plotChart();
+
+            //function to plot the route
+            plotMap();
+
+            //function to plot comparison chart
+            plotChart();
             // scroll to the visualization div
             $('html,body').animate({
                 scrollTop: $("#tripmap").offset().top
