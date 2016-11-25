@@ -1,3 +1,4 @@
 #Add Application Requirements here
 
 Flask
+requests==2.6.0
