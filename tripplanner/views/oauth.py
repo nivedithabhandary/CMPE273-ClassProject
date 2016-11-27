@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, session, current_app,render_template
+from flask import Flask, redirect, url_for, session, current_app
 from flask_oauth import OAuth
 from flask import Blueprint
 import requests
@@ -44,7 +44,9 @@ def index():
     try:
         res = urlopen(req)
         r = requests.get(profile_uri, params={'access_token': access_token})
+        print r.json()
         session['email'] =  r.json()['email']
+        session['name'] =  r.json()['name']
     except URLError, e:
         if e.code == 401:
             # Unauthorized - bad token
