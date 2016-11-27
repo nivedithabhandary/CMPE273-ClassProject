@@ -20,9 +20,6 @@ def add_locations():
   email = request.json['email']
   name = request.json['name']
   address = request.json['address']
-  city = request.json['city']
-  state = request.json['state']
-  zipcode = request.json['zipcode']
 
   # Get Lat Long from Google Map api
   latitude = 38.4220352
@@ -33,15 +30,12 @@ def add_locations():
    }
 
 
-  location_id = location.insert({'email': email, 'name': name, 'address':address,
-  'city':city, 'state': state, 'zipcode':zipcode, 'coordinate':coordinate})
+  location_id = location.insert({'email': email, 'name': name, 'address':address, 'coordinate':coordinate})
 
   new_entry = location.find_one({'_id': location_id })
 
   output = {'id':str(new_entry['_id']), 'email': new_entry['email'],
-  'name' : new_entry['name'],'address':new_entry['address'],
-  'city':new_entry['city'],'state': new_entry['state'],
-  'zipcode': new_entry['zipcode'],'coordinate':new_entry['coordinate'] }
+  'name' : new_entry['name'],'address':new_entry['address'],'coordinate':new_entry['coordinate'] }
 
   return json.dumps(output)
 
@@ -56,8 +50,7 @@ def get_all_locations(email):
       for s in location.find({'email' : email}):
           output.append({'id':str(s['_id']), 'email' : s['email'],
           'name' : s['name'],
-          'address':s['address'],'city':s['city'],
-          'state': s['state'], 'zipcode': s['zipcode'],
+          'address':s['address'],
           'coordinate':s['coordinate']})
   else:
     output = "Error: No such saved email found!"
