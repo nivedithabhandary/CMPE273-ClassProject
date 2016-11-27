@@ -10,8 +10,18 @@
             console.log("Added Location Textbox");
         });
 
+
         // TO DO :  FETCH USER'S SAVED LOCATIONS
         // DUMMY DATA
+
+        //Fetch useremail from cookies
+        console.log("cookies : " + document.cookie);
+
+        var mycookie = document.cookie;
+        var useremail = mycookie.split('=')[1];
+        console.log("useremail :" + useremail);
+
+
         var userLocations = [{
             "name": "My Home",
             "address": "4212 Lorren Drive, Fremont CA"
@@ -33,10 +43,10 @@
 function GetDynamicTextBox(count) {
     "use strict";
 
-//    return '<div class="col-sm-8 col-sm-offset-3"><div class="form-group"><input type="text" class="form-control" id="vialocation' + count + '" name="location" placeholder="via Location" list="locationsList" onInput="createdatalist(this)"></div></div>';
-//
-    
-    
+    //    return '<div class="col-sm-8 col-sm-offset-3"><div class="form-group"><input type="text" class="form-control" id="vialocation' + count + '" name="location" placeholder="via Location" list="locationsList" onInput="createdatalist(this)"></div></div>';
+    //
+
+
     return '<div class="form-group"><div class="col-sm-8 col-sm-offset-3"><input type="text" class="form-control" id="vialocation' + count + '" name="location" placeholder="via Location" list="locationsList" onInput="createdatalist(this)"></div><div class="col-xs-1"><a id="remove" title ="Delete via Location" onclick="removeTextbox(this)"><i class="fa fa-times fa-1x" style="color:white;"></i></a></div></div>';
 }
 

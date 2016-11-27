@@ -54,7 +54,9 @@ def index():
             return redirect(url_for('oauth.login'))
         return res.read()
 
-    return redirect(url_for('oauth.dashboard'))
+    #return redirect(url_for('oauth.dashboard'))
+    # redirecting to planner.py userpage to set cookies before sending the userpage to client
+    return redirect(url_for('planner.userpage'))
 
 @oauth.route('/login')
 def login():

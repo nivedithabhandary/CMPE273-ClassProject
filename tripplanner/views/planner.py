@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask import render_template,current_app
+from flask import render_template,current_app,session
 from flask import make_response
 
 planner = Blueprint('planner', __name__,template_folder='templates',static_folder='static')
@@ -8,7 +8,8 @@ planner = Blueprint('planner', __name__,template_folder='templates',static_folde
 @planner.route('/dummy')
 def dummy():
     # Do some stuff
-    return "Dummy Call"
+    return ("Inside dummy")
+    #return current_app.send_static_file('userindex.html');
 
 
 @planner.route('/')
@@ -26,6 +27,6 @@ def bestroute():
 def userpage():
     print ("Inside User Page")
     resp = make_response(current_app.send_static_file('userindex.html'))
-    resp.set_cookie('username', 'the username')
+    resp.set_cookie('useremail', session['email'])
     return resp
-    
+
