@@ -45,7 +45,7 @@
         var $span = $('<span class="fa" style="display:none"></span>').appendTo('body');
         if ($span.css('fontFamily') !== 'FontAwesome' ) {
             // Fallback Link
-            $('head').append('<link href="../static/css/libs/font-awesome.min.css" rel="stylesheet">');
+            $('head').append('<link href="../static/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">');
         }
         $span.remove();
     })(jQuery);
@@ -60,6 +60,7 @@
 
     <!-- Theme CSS -->
     <link href="../static/css/tripplanner.css" rel="stylesheet">
+	<link href="../static/css/visualization.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -166,7 +167,18 @@
             </div>
             <div class="container">
                 <div class="row">
-                    Add Visualization Here
+                    <div id="canvas-map">
+
+                    </div>
+                    <div id="uber_lyft_chart" class="col-lg-6 text-center">
+
+
+                    </div>
+                    <div id="ulbuttons">
+                        <h4 class="section-heading">Now start your journey!</h4>
+                        <a href="www.uber.com" id="uber-btn" type="submit">Uber</a>
+                        <a href="www.lyft.com" class="btn order-1-md bg-pink text-white order-1" type="submit" data-reactid="100">Lyft</a>
+                    </div>
                 </div>
             </div>
         </div>

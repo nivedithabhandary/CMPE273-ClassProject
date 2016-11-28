@@ -6,7 +6,7 @@ function plotMap() {
         latlng: new google.maps.LatLng(19.0760, 72.8777)
         }, {
         name: "Stop 2",
-        latlng: new google.maps.LatLng(12.9716, 77.5946)
+        latlng: new google.maps.LatLng(15.3647, 75.1240)
         }, {
         name: "Stop 3",
         latlng: new google.maps.LatLng(12.9141, 74.8560)
@@ -21,16 +21,28 @@ function plotMap() {
 
     };
 
+	var infowindow = new google.maps.InfoWindow({});
+	
     var mapOptions = {
         zoom: 0,
         center: new google.maps.LatLng(0, 0),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
+	var lineSymbol = {
+		path: 'M 0,-1 0,1',
+		strokeOpacity: 1,
+		scale: 3
+	};
+	
     var polyOptions = {
         strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 4
+        strokeOpacity: 0.0,
+        icons: [{
+			icon: lineSymbol,
+			offset: '0',
+			repeat: '20px'
+		}]
     }
 
     var map = new google.maps.Map(document.getElementById("canvas-map"), mapOptions);
@@ -41,20 +53,34 @@ function plotMap() {
     var path = poly.getPath();
 
     var latlngbounds = new google.maps.LatLngBounds();
-
+	var markers = [];
     for (var i = 0; i < PitStops.length; i++) {
-        new google.maps.Marker({
+		var data = PitStops[i];
+		var marker = new google.maps.Marker({
             position: PitStops[i].latlng,
             map: map,
-            icon: icon,
+            //icon: icon,			
             animation: google.maps.Animation.DROP,
             title: PitStops[i].name
-        });
+        });		
         path.push(PitStops[i].latlng);
         latlngbounds.extend(PitStops[i].latlng);
-    }
-    map.fitBounds(latlngbounds);
-
+		
+		var infowindow = new google.maps.InfoWindow({
+			content: data.name
+		});
+		infowindow.open(map, marker);
+		//Attach click event to the marker.
+         (function (marker, data) {
+                google.maps.event.addListener(marker, 'click', function (e) {
+                    //Wrap the content inside an HTML DIV in order to set height and width of InfoWindow.
+                    //infowindow.setContent("<div style = 'width:200px;min-height:40px'>" + data.name + "</div>");					
+					infowindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="../static/img/taxi.jpg" style ="width:20px;">'+' '+ data.name);
+                    infowindow.open(map, marker);
+                });
+        })(marker, data);
+    }	
+    map.fitBounds(latlngbounds);	
 }
 
 function plotChart() {

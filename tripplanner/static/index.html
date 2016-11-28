@@ -34,7 +34,7 @@
             }
         });
     })(window.jQuery);
-</script>
+	</script>
 
     <!-- Custom Fonts -->
     <!-- Font Awesome CSS-->
@@ -44,12 +44,12 @@
     (function($){
         var $span = $('<span class="fa" style="display:none"></span>').appendTo('body');
         if ($span.css('fontFamily') !== 'FontAwesome' ) {
-            // Fallback Link
-            $('head').append('<link href="../static/css/libs/font-awesome.min.css" rel="stylesheet">');
+            // Fallback Link font-awesome.min.css
+            $('head').append('<link href="../static/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">');
         }
         $span.remove();
     })(jQuery);
-</script>
+	</script>
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
