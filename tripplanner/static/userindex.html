@@ -12,45 +12,49 @@
     <title>Trip Planner</title>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-	<!-- Backup in case of CDN failures -->
-    <script>window.jQuery || document.write('<script src="../static/js/libs/jquery-3.1.1.min.js">\x3C/script>')</script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <!-- Backup in case of CDN failures -->
+    <script>
+        window.jQuery || document.write('<script src="../static/js/libs/jquery-3.1.1.min.js">\x3C/script>')
+    </script>
 
 
     <!-- Bootstrap Core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<!--Backup in case of CDN failures-->	
-	<script>window.jQuery.fn.modal || document.write('<script src="..static/js/libs/bootstrap.min.js"><\/script>')</script>
-	
+    <!--Backup in case of CDN failures-->
+    <script>
+        window.jQuery.fn.modal || document.write('<script src="..static/js/libs/bootstrap.min.js"><\/script>')
+    </script>
+
 
     <!-- Latest compiled and minified Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!--Backup in case of CDN failures-->
-	<script>
-    (function($) {
-        $(function() {
-            if ($('body').css('color') !== 'rgb(51, 51, 51)') {
-                $('head').prepend('<link rel="stylesheet" href="../static/css/libs/bootstrap.min.css">');
-            }
-        });
-    })(window.jQuery);
-	</script>
+    <!--Backup in case of CDN failures-->
+    <script>
+        (function ($) {
+            $(function () {
+                if ($('body').css('color') !== 'rgb(51, 51, 51)') {
+                    $('head').prepend('<link rel="stylesheet" href="../static/css/libs/bootstrap.min.css">');
+                }
+            });
+        })(window.jQuery);
+    </script>
 
     <!-- Custom Fonts -->
     <!-- Font Awesome CSS-->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-	<!--Backup in case of CDN failures-->
-	<script>
-    (function($){
-        var $span = $('<span class="fa" style="display:none"></span>').appendTo('body');
-        if ($span.css('fontFamily') !== 'FontAwesome' ) {
-            // Fallback Link
-            $('head').append('<link href="../static/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">');
-        }
-        $span.remove();
-    })(jQuery);
-	</script>
 
+    <!--Backup in case of CDN failures-->
+    <script>
+        (function ($) {
+            var $span = $('<span class="fa" style="display:none"></span>').appendTo('body');
+            if ($span.css('fontFamily') !== 'FontAwesome') {
+                // Fallback Link
+                $('head').append('<link href="../static/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">');
+            }
+            $span.remove();
+        })(jQuery);
+    </script>
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
@@ -60,7 +64,7 @@
 
     <!-- Theme CSS -->
     <link href="../static/css/tripplanner.css" rel="stylesheet">
-	<link href="../static/css/visualization.css" rel="stylesheet">
+    <link href="../static/css/visualization.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -126,13 +130,13 @@
                         <div class="form-group">
                             <label for="start" class="control-label col-sm-3">Start Location</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="start" name="location" placeholder="Start Location" list="locationsList" onInput="createdatalist(this)">
+                                <input type="text" class="form-control" id="start" name="location" placeholder="Start Location" list="locationsList" onInput="createdatalist(this)" onchange="validateData(this)" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="end" class="control-label col-sm-3">End Location</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="end" name="location" placeholder="End Location" list="locationsList" onInput="createdatalist(this)">
+                                <input type="text" class="form-control" id="end" name="location" placeholder="End Location" list="locationsList" onInput="createdatalist(this)" onchange="validateData(this)" />
                             </div>
                         </div>
                         <div class=" form-group">
@@ -215,8 +219,8 @@
     <!-- custom JavaScript -->
     <script src="../static/js/tripplanner.js "></script>
     <script src="../static/js/userlocautocomplete.js "></script>
-	
-	<!--Plotly Chart library-->
+
+    <!--Plotly Chart library-->
     <script src="../static/js/libs/plotly-latest.min.js"></script>
 
 </body>
