@@ -36,18 +36,16 @@
         });
 
     });
+
 })(jQuery);
 
 
 // Creates a Textbox
 function GetDynamicTextBox(count) {
     "use strict";
-
     //    return '<div class="col-sm-8 col-sm-offset-3"><div class="form-group"><input type="text" class="form-control" id="vialocation' + count + '" name="location" placeholder="via Location" list="locationsList" onInput="createdatalist(this)"></div></div>';
     //
-
-
-    return '<div class="form-group"><div class="col-sm-8 col-sm-offset-3"><input type="text" class="form-control" id="vialocation' + count + '" name="location" placeholder="via Location" list="locationsList" onInput="createdatalist(this)"></div><div class="col-xs-1"><a id="remove" title ="Delete via Location" onclick="removeTextbox(this)"><i class="fa fa-times fa-1x" style="color:white;"></i></a></div></div>';
+    return '<div class="form-group"><div class="col-sm-8 col-sm-offset-3"><input type="text" class="form-control" id="vialocation' + count + '" name="location" placeholder="via Location" list="locationsList" onInput="createdatalist(this)" onchange="validateData(this)"/></div><div class="col-xs-1"><a id="remove" title ="Delete via Location" onclick="removeTextbox(this)"><i class="fa fa-times-circle-o fa-1x" style="color:white;"></i></a></div></div>';
 }
 
 // Removes Google prediction options from datalist 
@@ -86,7 +84,7 @@ function createdatalist(textbox) {
         var displaySuggestions = function (predictions, status) {
             console.log("Inside callback for predictions");
             if (status != google.maps.places.PlacesServiceStatus.OK) {
-                alert(status);
+                console.log(status);
                 return;
             }
             predictions.some(function (prediction) {
@@ -116,4 +114,29 @@ function removeTextbox(elem) {
     console.log("Inside remove textbox function");
     //Remove Textbox on icon click
     $(elem).parent().parent().remove();
+}
+
+
+// Validates Location Textboxes
+function validateData(elem) {
+    var validdata = false;
+    console.log("Inside Validate Data")
+    console.log($(elem).val());
+    var datalist = document.getElementById("locationsList")
+    for (var i = datalist.options.length - 1; i >= 0; i--) {
+        if ((datalist.options[i].value) === ($(elem).val())) {
+            validdata = true;
+            $(elem).parent().parent().removeClass("has-feedback");
+            $(elem).parent().children().remove(".glyphicon");
+            $(elem).removeClass("incorrectdata")
+            break;
+        }
+    }
+
+    if (!validdata) {
+        console.log("Correct the Data");
+        $(elem).parent().parent().addClass("has-feedback");
+        $(elem).after('<span class="glyphicon glyphicon-remove form-control-feedback" style="color:red"></span>');
+        $(elem).addClass("incorrectdata");
+    }
 }
