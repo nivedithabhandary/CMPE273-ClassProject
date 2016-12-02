@@ -20,20 +20,33 @@
         var mycookie = document.cookie;
         var useremail = mycookie.split('=')[1];
         console.log("useremail :" + useremail);
+        //useremail = "jaya.kirtani@sjsu.edu"
+        var apicall = "/locations/" + useremail.replace(/\"/g, "");
+        console.log("Location API Call :" + apicall);
 
-
-        var userLocations = [{
-            "name": "My Home",
-            "address": "4212 Lorren Drive, Fremont CA"
-                    }, {
-            "name": "My Work",
-            "address": "1 Washington Square, San Jose, CA"
-                    }]
-
-        // Add User saved Locations to the datalist
-        userLocations.forEach(function (location) {
-            $("#locationsList").append('<option id="userloc" value="' + location.address + '">' + location.name + '</option>')
+        var userLocations;
+        $.get(apicall).done(function (data) {
+            console.log("Output from my server :" + JSON.stringify(data));
+            userLocations = data.result;
+            // Add User saved Locations to the datalist
+            userLocations.forEach(function (location) {
+                $("#locationsList").append('<option id="userloc" value="' + location.address + '">' + location.name + '</option>')
+            });
         });
+
+
+        //        var userLocations = [{
+        //            "name": "My Home",
+        //            "address": "4212 Lorren Drive, Fremont CA"
+        //                    }, {
+        //            "name": "My Work",
+        //            "address": "1 Washington Square, San Jose, CA"
+        //                    }]
+
+        //        // Add User saved Locations to the datalist
+        //        userLocations.forEach(function (location) {
+        //            $("#locationsList").append('<option id="userloc" value="' + location.address + '">' + location.name + '</option>')
+        //        });
 
     });
 

@@ -4,3 +4,7 @@ Flask
 requests==2.6.0
 flask_oauth
 Flask-PyMongo
+googlemaps
+geopy
+rauth
+responses
