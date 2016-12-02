@@ -1,28 +1,30 @@
-function plotMap() {
+// function to plot optimized route on google maps
+function plotMap(places) {
+    console.log (" inside plot map");
+	var allPropertyNames = Object.keys(places);	
+	var coords = []; //array to store co-ordinates of optimized route
+	for (var j=0; j<allPropertyNames.length; j++) {
+		var name = allPropertyNames[j];
+		var value = places[name];
+		coords.push(value);    
+	}
+	
     var poly;
-    //To be populated with the optimized route from google maps Api
-    var PitStops = [{
-        name: "Stop 1",
-        latlng: new google.maps.LatLng(19.0760, 72.8777)
-        }, {
-        name: "Stop 2",
-        latlng: new google.maps.LatLng(15.3647, 75.1240)
-        }, {
-        name: "Stop 3",
-        latlng: new google.maps.LatLng(12.9141, 74.8560)
-        }, {
-        name: "Stop 4",
-        latlng: new google.maps.LatLng(13.0827, 80.2707)
-        }];
+    var stopsList = [];
+    $.each( coords, function( index, value ){
+        var pitStops = {};        
+        pitStops["name"] = "Stop "+ (index + 1);
+        pitStops["latlng"] = new google.maps.LatLng(value[0],value[1])
+        stopsList.push(pitStops);        
+    });
 
     var icon = {
         url: "../static/img/taxi.jpg", // url
         scaledSize: new google.maps.Size(25, 25) // scaled size
-
     };
 
 	var infowindow = new google.maps.InfoWindow({});
-	
+
     var mapOptions = {
         zoom: 0,
         center: new google.maps.LatLng(0, 0),
@@ -34,7 +36,7 @@ function plotMap() {
 		strokeOpacity: 1,
 		scale: 3
 	};
-	
+
     var polyOptions = {
         strokeColor: '#FF0000',
         strokeOpacity: 0.0,
@@ -54,52 +56,51 @@ function plotMap() {
 
     var latlngbounds = new google.maps.LatLngBounds();
 	var markers = [];
-    for (var i = 0; i < PitStops.length; i++) {
-		var data = PitStops[i];
+    for (var i = 0; i < stopsList.length; i++) {
+		var data = stopsList[i];
 		var marker = new google.maps.Marker({
-            position: PitStops[i].latlng,
+            position: stopsList[i].latlng,
             map: map,
-            //icon: icon,			
+            //icon: icon,
             animation: google.maps.Animation.DROP,
-            title: PitStops[i].name
-        });		
-        path.push(PitStops[i].latlng);
-        latlngbounds.extend(PitStops[i].latlng);
-		
+            title: stopsList[i].name
+        });
+        path.push(stopsList[i].latlng);
+        latlngbounds.extend(stopsList[i].latlng);
+
 		var infowindow = new google.maps.InfoWindow({
 			content: data.name
 		});
 		infowindow.open(map, marker);
 		//Attach click event to the marker.
-         (function (marker, data) {
+        (function (marker, data) {
                 google.maps.event.addListener(marker, 'click', function (e) {
                     //Wrap the content inside an HTML DIV in order to set height and width of InfoWindow.
-                    //infowindow.setContent("<div style = 'width:200px;min-height:40px'>" + data.name + "</div>");					
+                    //infowindow.setContent("<div style = 'width:200px;min-height:40px'>" + data.name + "</div>");
 					infowindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="../static/img/taxi.jpg" style ="width:20px;">'+' '+ data.name);
                     infowindow.open(map, marker);
                 });
         })(marker, data);
-    }	
-    map.fitBounds(latlngbounds);	
+    }
+    map.fitBounds(latlngbounds);
 }
 
-function plotChart() {
+//function to plot bar chart for price comparison
+function plotChart(uberPrice,lyftPrice) {
     var data = [{
         x: ['UBER', 'LYFT'],
-        y: [20, 15],
+        y: [uberPrice, lyftPrice],
         marker: {
-            color: ['rgba(31,186,214,1)', 'rgba(234, 11, 140,1)']
+            color: ['rgba(31,186,214,1)', 'rgba(234, 11, 140,1)'],
+            width: 1.5
         },
         type: 'bar'
 	}];
     var layout = {
         title: 'Look at the comparison!'
     };
-
-
     Plotly.newPlot('uber_lyft_chart', data, layout);
 }
-
 
 (function ($) {
     "use strict"; // Start of use strict
@@ -183,18 +184,56 @@ function plotChart() {
         $('#tripmap').hide();
         //$('#visualization').hide()
 
-        // On click of button "Plan My Trip" collects information from server about best route ,Uber and Lyft prives and shows visualization 
+        // On click of button "Plan My Trip" collects information from server about best route ,Uber and Lyft prives and shows visualization
         $('#planmytrip').click(function () {
             console.log("Inside plan trip button function");
 
             // On button click show the div meant for visualization
             $('#tripmap').show();
 
-            //function to plot the route
-            plotMap();
+			//creating user data in json format to be used for the google optimized route api
+			var origin = $("#start").val();
+			var destination = $("#end").val();
+			var waypoints =[];
+			$("input[id^=vialocation]").each(function() {
+				waypoints.push($(this).val());
+			});
+			var inData =[{"origin":origin,"destination":destination,"waypoints":waypoints}];			
+			$.ajax({
+				 type: "POST",
+				 url: "http://localhost:5000/fetchPrices",
+				 data: JSON.stringify(inData),
+				 contentType: "application/json",
+				 dataType: "json",
+				 beforeSend: function(){
+					// Show image container
+					$("#loader").show();
+				 },
+				 success: function (data, status, jqXHR) {
+					console.log("success");            
+					var places = data[0].places;
+					var uberPrice = data[0].uberPrice;
+					var lyftPrice = data[0].lyftPrice;
+					var locationLatLng = data[0].locationLatLng;
+					plotMap(locationLatLng);
+					plotChart(uberPrice,lyftPrice);
+				},
+				complete:function(data){
+                   // Hide image container
+                    $("#loader").hide();
+                },
+				 error: function (jqXHR, status) {
+						console.log(status);
+					  // error handler
+					  //console.log("failure:"+ status);
+				 }
+			});
 
-            //function to plot comparison chart
-            plotChart();
+			/*$.post("http://localhost:5000/fetchPrices",JSON.stringify(inData),
+			function(data, status){
+        console.log(data);
+			});*/
+
             // scroll to the visualization div
             $('html,body').animate({
                 scrollTop: $("#tripmap").offset().top
@@ -230,7 +269,6 @@ function plotChart() {
             //});
 
         });
-
 
         //Add Content Here
 
