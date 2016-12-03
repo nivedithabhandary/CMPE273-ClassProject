@@ -10,46 +10,50 @@
     <meta name="author" content="">
 
     <title>Trip Planner</title>
-	
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-	<!-- Backup in case of CDN failures -->
-    <script>window.jQuery || document.write('<script src="../static/js/libs/jquery-3.1.1.min.js">\x3C/script>')</script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <!-- Backup in case of CDN failures -->
+    <script>
+        window.jQuery || document.write('<script src="../static/js/libs/jquery-3.1.1.min.js">\x3C/script>')
+    </script>
 
 
     <!-- Bootstrap Core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<!--Backup in case of CDN failures-->	
-	<script>window.jQuery.fn.modal || document.write('<script src="..static/js/libs/bootstrap.min.js"><\/script>')</script>
-	
+    <!--Backup in case of CDN failures-->
+    <script>
+        window.jQuery.fn.modal || document.write('<script src="..static/js/libs/bootstrap.min.js"><\/script>')
+    </script>
+
 
     <!-- Latest compiled and minified Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!--Backup in case of CDN failures-->
-	<script>
-    (function($) {
-        $(function() {
-            if ($('body').css('color') !== 'rgb(51, 51, 51)') {
-                $('head').prepend('<link rel="stylesheet" href="../static/css/libs/bootstrap.min.css">');
-            }
-        });
-    })(window.jQuery);
-	</script>
+    <!--Backup in case of CDN failures-->
+    <script>
+        (function ($) {
+            $(function () {
+                if ($('body').css('color') !== 'rgb(51, 51, 51)') {
+                    $('head').prepend('<link rel="stylesheet" href="../static/css/libs/bootstrap.min.css">');
+                }
+            });
+        })(window.jQuery);
+    </script>
 
     <!-- Custom Fonts -->
     <!-- Font Awesome CSS-->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-	<!--Backup in case of CDN failures-->
-	<script>
-    (function($){
-        var $span = $('<span class="fa" style="display:none"></span>').appendTo('body');
-        if ($span.css('fontFamily') !== 'FontAwesome' ) {
-            // Fallback Link font-awesome.min.css
-            $('head').append('<link href="../static/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">');
-        }
-        $span.remove();
-    })(jQuery);
-	</script>
+    <!--Backup in case of CDN failures-->
+    <script>
+        (function ($) {
+            var $span = $('<span class="fa" style="display:none"></span>').appendTo('body');
+            if ($span.css('fontFamily') !== 'FontAwesome') {
+                // Fallback Link font-awesome.min.css
+                $('head').append('<link href="../static/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">');
+            }
+            $span.remove();
+        })(jQuery);
+    </script>
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
@@ -107,7 +111,7 @@
             <div class="header-content-inner">
                 <h1 id="homeHeading">Let us plan your trip</h1>
                 <hr>
-                <p>Provide us the locations you want to visit and we will find the cheapest route for Uber and Lyft </p>
+                <p>Provide us the locations you want to visit and we will find the cheapest route for <b>Uber</b> and <b>Lyft</b> </p>
                 <a href="#plantrip" class="btn btn-primary btn-xl page-scroll">Start</a>
             </div>
         </div>
@@ -173,11 +177,11 @@
                     </div>
                     <div id="ulbuttons">
                         <h4 class="section-heading">Now start your journey!</h4>
-						<div class="preloader" id='loader' style='display: none;'>
-							<div><img src="../static/img/Preloader_8.gif"/></div>
-						</div>
-                        <a href="www.uber.com" id="uber-btn" type="submit">Uber</a>
-                        <a href="www.lyft.com" class="btn order-1-md bg-pink text-white order-1" type="submit" data-reactid="100">Lyft</a>
+                        <div class="preloader" id='loader' style='display: none;'>
+                            <div><img src="../static/img/Preloader_8.gif" /></div>
+                        </div>
+                        <a href="https://www.uber.com" id="uber-btn" type="submit">Uber</a>
+                        <a href="https://www.lyft.com" class="btn order-1-md bg-pink text-white order-1" type="submit" data-reactid="100">Lyft</a>
                     </div>
                 </div>
             </div>
