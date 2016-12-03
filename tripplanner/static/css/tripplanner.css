@@ -172,8 +172,6 @@ header {
     -o-background-size: cover;
     background-position: center;
     background-image: url('../img/header.jpeg');
-    /*background-image: url('../img/photo-1471958680802-1345a694ba6d.jpeg');*/
-    /*background-image: url('../img/header.jpg'); */
     text-align: center;
     color: white;
 }
@@ -305,10 +303,10 @@ fieldset[disabled] .btn-default.active {
 
 .btn-primary {
     color: white;
-    background-color: orange;
+    background-color: coral;
     /* CHANGED
     background-color: #F05F40;*/
-    border-color: #F05F40;
+    border-color: coral;
     -webkit-transition: all 0.35s;
     -moz-transition: all 0.35s;
     transition: all 0.35s;
@@ -397,5 +395,9 @@ body {
 }
 
 .incorrectdata {
-    color:red;
+    color: red;
+}
+
+.control-label {
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
