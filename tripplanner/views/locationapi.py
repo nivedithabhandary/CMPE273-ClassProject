@@ -15,20 +15,16 @@ def set_mongo_handler(mongo_handle):
 @locationapi.route('/locations', methods=['POST'])
 def add_locations():
   global g_mongo_handle
-  location = g_mongo_handle.db.locations
-
-  email = request.json['email']
-  name = request.json['name']
-  address = request.json['address']
-
-
-  location_id = location.insert({'email': email, 'name': name, 'address':address})
-
-  new_entry = location.find_one({'_id': location_id })
-
-  output = {'id':str(new_entry['_id']), 'email': new_entry['email'],
-  'name' : new_entry['name'],'address':new_entry['address']}
-
+  location = g_mongo_handle.db.locations 
+  email = request.json[0]['email']
+  locationList = request.json[0]['locations']
+  for index in range(len(locationList)-1):
+      if index%2==0:
+        name = locationList[index]
+        address = locationList[index+1]
+        location_id = location.insert({'email': email, 'name': name, 'address':address})
+        new_entry = location.find_one({'_id': location_id })
+        output = {'id':str(new_entry['_id']), 'email': new_entry['email'],'name' : new_entry['name'],'address':new_entry['address']}
   return json.dumps(output)
 
 # Get all locations with email
