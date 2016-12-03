@@ -16,7 +16,7 @@ class PriceDetails:
         return places
 
     def convertLoctoLatLong(self, places):
-        locationLatLng = {}
+        locationLatLng = OrderedDict()
         geolocator = Nominatim()
         for place in places:
             location = geolocator.geocode(place)
@@ -60,6 +60,7 @@ class PriceDetails:
         places = self.getOptimizedRoute(origin, destination, waypoints)
         priceMap["places"] = places
         locationLatLng = self.convertLoctoLatLong(places)
+        priceMap["locationLatLng"] = locationLatLng
         uberFinalAmount = self.getUberData(places, locationLatLng)
         priceMap["uberPrice"] = uberFinalAmount
         lyftFinalAmount = self.getLyftData(places, locationLatLng)
