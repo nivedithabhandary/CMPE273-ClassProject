@@ -18,11 +18,11 @@ def index():
     print ("Inside Main")
     return current_app.send_static_file('index.html');
     #return render_template('index.html');
-    
+
 @planner.route('/dummybestrouteapi',methods =['POST'])
 def bestroute():
     pass;
-    
+
 @planner.route('/userpage')
 def userpage():
     print ("Inside User Page")
@@ -30,3 +30,13 @@ def userpage():
     resp.set_cookie('useremail', session['email'])
     return resp
 
+@planner.route('/mylocations')
+def mylocations():
+    # Do some stuff
+    print ("Inside my location")
+    return current_app.send_static_file('mylocations.html')
+
+@planner.route('/plantrip')
+def planTrip():
+	print ("Inside plan trip from location")
+	return current_app.send_static_file('userindex.html')
