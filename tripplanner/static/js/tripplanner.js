@@ -1,11 +1,13 @@
 // function to plot optimized route on google maps
-function plotMap(places) {
+function plotMap(latlongList) {
     console.log (" inside plot map");
-	var allPropertyNames = Object.keys(places);	
+	console.log(latlongList);
+	var allPropertyNames = Object.keys(latlongList);	
+	console.log(allPropertyNames);
 	var coords = []; //array to store co-ordinates of optimized route
 	for (var j=0; j<allPropertyNames.length; j++) {
 		var name = allPropertyNames[j];
-		var value = places[name];
+		var value = latlongList[name];
 		coords.push(value);    
 	}
 	
@@ -13,7 +15,7 @@ function plotMap(places) {
     var stopsList = [];
     $.each( coords, function( index, value ){
         var pitStops = {};        
-        pitStops["name"] = "Stop "+ (index + 1);
+        pitStops["name"] = allPropertyNames[index];
         pitStops["latlng"] = new google.maps.LatLng(value[0],value[1])
         stopsList.push(pitStops);        
     });
@@ -56,6 +58,9 @@ function plotMap(places) {
 
     var latlngbounds = new google.maps.LatLngBounds();
 	var markers = [];
+	//var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	var labels = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"];
+    var labelIndex = 0;
     for (var i = 0; i < stopsList.length; i++) {
 		var data = stopsList[i];
 		var marker = new google.maps.Marker({
@@ -63,12 +68,13 @@ function plotMap(places) {
             map: map,
             //icon: icon,
             animation: google.maps.Animation.DROP,
-            title: stopsList[i].name
+            title: stopsList[i].name,
+			label: labels[labelIndex++]
         });
         path.push(stopsList[i].latlng);
         latlngbounds.extend(stopsList[i].latlng);
 
-		var infowindow = new google.maps.InfoWindow({
+		/*var infowindow = new google.maps.InfoWindow({
 			content: data.name
 		});
 		infowindow.open(map, marker);
@@ -80,13 +86,14 @@ function plotMap(places) {
 					infowindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="../static/img/taxi.jpg" style ="width:20px;">'+' '+ data.name);
                     infowindow.open(map, marker);
                 });
-        })(marker, data);
+        })(marker, data);*/
     }
     map.fitBounds(latlngbounds);
 }
 
 //function to plot bar chart for price comparison
 function plotChart(uberPrice,lyftPrice) {
+	$('#rateChart').show();
     var data = [{
         x: ['UBER', 'LYFT'],
         y: [uberPrice, lyftPrice],
@@ -101,6 +108,19 @@ function plotChart(uberPrice,lyftPrice) {
     };
     Plotly.newPlot('uber_lyft_chart', data, layout);
 }
+
+//function to display best route in the UI
+function plotDirections(places){
+	$.each( places, function( index, value ){
+		 var content = '<div class="ui-block-a" style ="margin:15px;padding:10px;">'
+		content += '<input data-role="none" class="form-control" type="text" id="loc_'+index+'" readonly/>'
+		content += '</div>'
+        $('#routePlan').append(content);	
+		//$('#ind_'+index).val(index+1);
+		$('#loc_'+index).val( (index+1)+"    " +value);			
+    });
+}
+
 
 (function ($) {
     "use strict"; // Start of use strict
@@ -183,6 +203,8 @@ function plotChart(uberPrice,lyftPrice) {
         // Hide the Trip Map div when page is first loaded
         $('#tripmap').hide();
         //$('#visualization').hide()
+		
+		$('#rateChart').hide();
 
         // On click of button "Plan My Trip" collects information from server about best route ,Uber and Lyft prives and shows visualization
         $('#planmytrip').click(function () {
@@ -217,6 +239,7 @@ function plotChart(uberPrice,lyftPrice) {
 					var locationLatLng = data[0].locationLatLng;
 					plotMap(locationLatLng);
 					plotChart(uberPrice,lyftPrice);
+					plotDirections(places);
 				},
 				complete:function(data){
                    // Hide image container

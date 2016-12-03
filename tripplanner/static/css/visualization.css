@@ -2,12 +2,24 @@
 	width:60%;
 	height:400px;
 	float:left;
+	padding-top :15px;
 }
 
-#uber_lyft_chart{
+#routePlan{
 	width:40%;
 	height:300px;
 	float:left;
+	padding-top :15px;
+}
+
+#rateChart{
+	padding : 20px;
+}
+
+#uber_lyft_chart{
+	
+	height:300px;
+	
 }
 
 #ulbuttons{
