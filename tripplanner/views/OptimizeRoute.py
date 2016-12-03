@@ -9,7 +9,6 @@ class OptimizedRoute:
             "origin": convert.latlng(origin),
             "destination": convert.latlng(destination)
         }
-        print params
         waypoints = convert.location_list(waypoints)
         optimize_waypoints = True
         if optimize_waypoints:
