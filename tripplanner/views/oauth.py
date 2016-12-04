@@ -1,7 +1,7 @@
-from flask import Flask, redirect, url_for, session, current_app
+from flask import Flask, redirect, url_for, session, current_app, make_response
 from flask_oauth import OAuth
 from flask import Blueprint
-import requests
+import requests, json, httplib2
 from urllib2 import Request, urlopen, URLError
 
 oauth = Blueprint('oauth', __name__)
@@ -65,14 +65,28 @@ def login():
 
 @oauth.route('/logout')
 def logout():
-# Delete the user's profile and the credentials stored by oauth2.
-    del session['email']
-    session.modified = True
+    credentials = session.get('access_token')
+    if credentials is None:
+        response = make_response(json.dumps('Current user not connected.'), 401)
+        response.headers['Content-Type'] = 'application/json'
+        return response
+
+    # Execute HTTP GET request to revoke current token.
+    access_token = str(credentials[0])
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
+    h = httplib2.Http()
+    result = h.request(url, 'GET')[0]
+
+    if result['status'] == '200':
+        # Reset the user's session.
+        del session['access_token']
     return redirect('/')
 
 @oauth.route(REDIRECT_URI)
 @google.authorized_handler
 def authorized(resp):
+    if resp==None:
+        return redirect('/')
     access_token = resp['access_token']
     session['access_token'] = access_token, ''
     return redirect(url_for('oauth.index'))
