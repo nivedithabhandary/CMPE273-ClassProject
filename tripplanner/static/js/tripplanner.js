@@ -1,9 +1,10 @@
 // function to plot optimized route on google maps
-function plotMap(latlongList) {
-    console.log (" inside plot map");
-	console.log(latlongList);
-	var allPropertyNames = Object.keys(latlongList);	
-	console.log(allPropertyNames);
+function plotMap(latlongList,isStartEndSame) {
+    console.log (" inside plot map");	
+	var allPropertyNames = Object.keys(latlongList);
+	if (isStartEndSame == true){
+		allPropertyNames[allPropertyNames.length]= allPropertyNames[0];
+	}		
 	var coords = []; //array to store co-ordinates of optimized route
 	for (var j=0; j<allPropertyNames.length; j++) {
 		var name = allPropertyNames[j];
@@ -59,7 +60,7 @@ function plotMap(latlongList) {
     var latlngbounds = new google.maps.LatLngBounds();
 	var markers = [];
 	//var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	var labels = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"];
+	var labels = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"];
     var labelIndex = 0;
     for (var i = 0; i < stopsList.length; i++) {
 		var data = stopsList[i];
@@ -111,13 +112,16 @@ function plotChart(uberPrice,lyftPrice) {
 
 //function to display best route in the UI
 function plotDirections(places){
+	if ($('#routePlan').children().length >= 1){
+		$('#routePlan').children().remove();			
+	}
 	$.each( places, function( index, value ){
-		 var content = '<div class="ui-block-a" style ="margin:15px;padding:10px;">'
+		 var content = '<div class="ui-block-a" style ="margin:5px;">'
 		content += '<input data-role="none" class="form-control" type="text" id="loc_'+index+'" readonly/>'
 		content += '</div>'
         $('#routePlan').append(content);	
 		//$('#ind_'+index).val(index+1);
-		$('#loc_'+index).val( (index+1)+"    " +value);			
+		$('#loc_'+index).val( (index+1)+"   " +value);			
     });
 }
 
@@ -234,10 +238,16 @@ function plotDirections(places){
 				 success: function (data, status, jqXHR) {
 					console.log("success");            
 					var places = data[0].places;
+					var noOfStops = places.length;
 					var uberPrice = data[0].uberPrice;
 					var lyftPrice = data[0].lyftPrice;
 					var locationLatLng = data[0].locationLatLng;
-					plotMap(locationLatLng);
+					var locationLatLngList = data[0].locationLatLngList;
+					var isStartEndSame = false;
+					if(Object.keys(locationLatLng).length < noOfStops){
+							isStartEndSame = true;
+					}					
+					plotMap(locationLatLng,isStartEndSame);
 					plotChart(uberPrice,lyftPrice);
 					plotDirections(places);
 				},
