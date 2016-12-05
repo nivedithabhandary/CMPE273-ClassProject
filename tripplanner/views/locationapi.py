@@ -15,16 +15,22 @@ def set_mongo_handler(mongo_handle):
 @locationapi.route('/locations', methods=['POST'])
 def add_locations():
   global g_mongo_handle
-  location = g_mongo_handle.db.locations 
-  email = request.json[0]['email']
-  locationList = request.json[0]['locations']
+  location = g_mongo_handle.db.locations
+  email = request.json['email']
+  locationList = request.json['locations']
+  userData = []
   for index in range(len(locationList)-1):
+      data = []
       if index%2==0:
         name = locationList[index]
         address = locationList[index+1]
-        location_id = location.insert({'email': email, 'name': name, 'address':address})
-        new_entry = location.find_one({'_id': location_id })
-        output = {'id':str(new_entry['_id']), 'email': new_entry['email'],'name' : new_entry['name'],'address':new_entry['address']}
+        data.append(name)
+        data.append(address)
+        userData.append(data)
+
+  location_id = location.insert({'email': email, 'locations': userData})
+  new_entry = location.find_one({'_id': location_id })
+  output = {'id':str(new_entry['_id']), 'email': new_entry['email'],'locations' : new_entry['locations']}
   return json.dumps(output)
 
 # Get all locations with email
@@ -32,16 +38,19 @@ def add_locations():
 def get_all_locations(email):
   global g_mongo_handle
   location = g_mongo_handle.db.locations
-  found = location.find_one({'email' : email})
+  found = None
+  found = location.find({'email' : email})
   if found:
       output = []
+
       for s in location.find({'email' : email}):
+          print s
           output.append({'id':str(s['_id']), 'email' : s['email'],
-          'name' : s['name'],
-          'address':s['address']})
+          'locations':s['locations']})
+
   else:
     output = "Error: No such saved email found!"
-  return jsonify({'result' : output})
+  return json.dumps(output)
 
 @locationapi.route('/locations/<email>', methods=['PUT'])
 def modify_location(email):
@@ -61,9 +70,10 @@ def modify_location(email):
 def delete_location(email):
   global g_mongo_handle
   location = g_mongo_handle.db.locations
-  found = location.find_one({'email' : email})
+  name = request.json['name']
+  found = location.find_one({'$and':[{'email' : email}, {'name':name}]})
   if found:
-      location.remove({'email':email})
+      location.remove({'name':name})
       output = "Delete Success"
   else:
       output = "Error: No such saved location name found!"
