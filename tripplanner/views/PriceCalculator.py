@@ -6,22 +6,30 @@ from UberDetails import UberData
 from LyftDetails import LyftObj
 from OptimizeRoute import OptimizedRoute
 from collections import OrderedDict
+from geoCoding import GeoCodes
 
 class PriceDetails:
 
     def getOptimizedRoute(self, origin, destination, waypoints):
         places = []
         optRoute = OptimizedRoute()
+        print "Inside Price Details"
+        print origin
+        print destination
+        print waypoints
         places = optRoute.getWaypoints(origin,destination,waypoints)
         return places
 
     def convertLoctoLatLong(self, places):
-        locationLatLng = OrderedDict()
-        geolocator = Nominatim()
+        location = GeoCodes()
+        latlngList = OrderedDict()
         for place in places:
-            location = geolocator.geocode(place)
-            locationLatLng[place] = location.latitude, location.longitude
-        return locationLatLng
+            latlng = []
+            latlng = location.getGeoCodes(place)
+            print "latlng"
+            print latlng
+            latlngList[place] = latlng
+        return latlngList
 
     def getUberData(self, places, locationLatLng):
         uberKey = "LcSRQ6aV3oftJUWTvV0830t_Lf42MSSmNL5BI3K8"
@@ -65,5 +73,9 @@ class PriceDetails:
         priceMap["uberPrice"] = uberFinalAmount
         lyftFinalAmount = self.getLyftData(places, locationLatLng)
         priceMap["lyftPrice"] = lyftFinalAmount
+        print "uberFinalAmount"
+        print uberFinalAmount
+        print "lyftFinalAmount"
+        print lyftFinalAmount
         priceList.append(priceMap)
         return json.dumps(priceList)
