@@ -26,9 +26,16 @@ class PriceDetails:
         for place in places:
             latlng = []
             latlng = location.getGeoCodes(place)
-            print "latlng"
-            print latlng
             latlngList[place] = latlng
+        return latlngList
+    
+    def convertLoctoLatLongList(self, places):
+        location = GeoCodes()
+        latlngList = []
+        for place in places:
+            latlng = []
+            latlng = location.getGeoCodes(place)
+            latlngList.append(latlng)
         return latlngList
 
     def getUberData(self, places, locationLatLng):
@@ -69,13 +76,12 @@ class PriceDetails:
         priceMap["places"] = places
         locationLatLng = self.convertLoctoLatLong(places)
         priceMap["locationLatLng"] = locationLatLng
+        locationLatLngList = self.convertLoctoLatLongList(places)
+        priceMap["locationLatLngList"] = locationLatLngList
         uberFinalAmount = self.getUberData(places, locationLatLng)
         priceMap["uberPrice"] = uberFinalAmount
         lyftFinalAmount = self.getLyftData(places, locationLatLng)
         priceMap["lyftPrice"] = lyftFinalAmount
-        print "uberFinalAmount"
-        print uberFinalAmount
-        print "lyftFinalAmount"
-        print lyftFinalAmount
         priceList.append(priceMap)
+        print priceList
         return json.dumps(priceList)
