@@ -20,13 +20,22 @@
         console.log("Location API Call :" + apicall);
 
         var userLocations;
+        var locationsdata;
         $.get(apicall).done(function (data) {
-            console.log("Output from my server :" + JSON.stringify(data));
-            userLocations = data.result;
-            // Add User saved Locations to the datalist
-            userLocations.forEach(function (location) {
-                $("#locationsList").append('<option id="userloc" value="' + location.address + '">' + location.name + '</option>')
-            });
+            console.log("Output from my server :" + data);
+            var output = JSON.parse(data);
+            if (output.length > 0) {
+                locationsdata = output[0].locations
+                    //console.log(locationsdata);
+                    //console.log(locationsdata.locations);
+                userLocations = Object.keys(locationsdata);
+                //console.log(userLocations);
+                // Add User saved Locations to the datalist
+                userLocations.forEach(function (location) {
+                    //console.log(location);
+                    $("#locationsList").append('<option id="userloc" value="' + locationsdata[location] + '">' + location + '</option>')
+                });
+            }
         });
 
 
