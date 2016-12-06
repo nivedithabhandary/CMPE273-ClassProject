@@ -16,7 +16,7 @@ def set_mongo_handler(mongo_handle):
 def add_locations():
   global g_mongo_handle
   location = g_mongo_handle.db.locations
-  email = request.json[0]['email']
+  email = request.json[0]['email'][1:-1]
   locationList = request.json[0]['locations']
   name = None
   address = None
