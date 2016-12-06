@@ -10,8 +10,8 @@ class LyftObj:
         """
         initialize connection to the api url and get access token
         """
-        self.client_id = 'ggWAbpJIjFfS'
-        self.client_secret = '-8wIa_rQckhP4o0Ts0GfZJwEKrJaf2tc'
+        self.client_id = '1IUtBMFNpu-a'
+        self.client_secret = '8aKUuBCyPmBjlejnnpcJzm9_kJX8HZRi'
 
         # obtain access token
         self.token = self.__generate_token__()

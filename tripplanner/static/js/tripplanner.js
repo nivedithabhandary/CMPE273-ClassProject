@@ -101,7 +101,15 @@ function plotChart(uberPrice,lyftPrice) {
         type: 'bar'
 	}];
     var layout = {
-        title: 'Look at the comparison!'
+        title: 'Look at the comparison!',		
+		yaxis: {
+			title: 'Dollars',
+			titlefont: {
+			  family: 'Times New Roman',
+			  size: 20,
+			  color: '#7f7f7f'
+			}
+		}
     };
     Plotly.newPlot('uber_lyft_chart', data, layout);
 }
