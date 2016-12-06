@@ -1,14 +1,10 @@
 // function to plot optimized route on google maps
-function plotMap(latlongList,isStartEndSame) {
+function plotMap(latlongList,places) {
     console.log (" inside plot map");	
-	var allPropertyNames = Object.keys(latlongList);
-	if (isStartEndSame == true){
-		allPropertyNames[allPropertyNames.length]= allPropertyNames[0];
-	}		
 	var coords = []; //array to store co-ordinates of optimized route
-	for (var j=0; j<allPropertyNames.length; j++) {
-		var name = allPropertyNames[j];
-		var value = latlongList[name];
+	for (var j=0; j< places.length; j++) {
+		var name = places[j];
+		var value = latlongList[j];
 		coords.push(value);    
 	}
 	
@@ -16,7 +12,7 @@ function plotMap(latlongList,isStartEndSame) {
     var stopsList = [];
     $.each( coords, function( index, value ){
         var pitStops = {};        
-        pitStops["name"] = allPropertyNames[index];
+        pitStops["name"] = places[index];
         pitStops["latlng"] = new google.maps.LatLng(value[0],value[1])
         stopsList.push(pitStops);        
     });
@@ -242,12 +238,8 @@ function plotDirections(places){
 					var uberPrice = data[0].uberPrice;
 					var lyftPrice = data[0].lyftPrice;
 					var locationLatLng = data[0].locationLatLng;
-					var locationLatLngList = data[0].locationLatLngList;
-					var isStartEndSame = false;
-					if(Object.keys(locationLatLng).length < noOfStops){
-							isStartEndSame = true;
-					}					
-					plotMap(locationLatLng,isStartEndSame);
+					var locationLatLngList = data[0].locationLatLngList;										
+					plotMap(locationLatLngList,places);
 					plotChart(uberPrice,lyftPrice);
 					plotDirections(places);
 				},
