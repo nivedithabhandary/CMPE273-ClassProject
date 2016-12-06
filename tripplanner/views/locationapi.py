@@ -60,7 +60,7 @@ def get_all_locations(email):
         output.append({'id':str(s['_id']), 'email' : s['email'], 'locations':s['locations']})
         return json.dumps(output)
 
-    output = "Error: No such saved email found!"
+    #output = "Error: No such saved email found!"
     return json.dumps(output)
 '''
 @locationapi.route('/locations/<email>', methods=['PUT'])
@@ -82,6 +82,7 @@ def delete_location(email):
   global g_mongo_handle
   location = g_mongo_handle.db.locations
   name = request.json[0]['name']
+  output = None
 
   for s in location.find({'email' : email}):
     locations = s['locations']
@@ -96,5 +97,5 @@ def delete_location(email):
       output = "Delete Success"
       return jsonify({'result' : output})
 
-  output = "Error: No such saved location name found!"
+  #output = "Error: No such saved location name found!"
   return jsonify({'result' : output})
