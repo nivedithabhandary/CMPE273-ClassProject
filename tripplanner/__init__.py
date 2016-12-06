@@ -11,8 +11,8 @@ from flask_pymongo import PyMongo
 
 
 app = Flask(__name__)
-app.config['MONGO_DBNAME'] = 'restdb'
-app.config['MONGO_URI'] = 'mongodb://ec2-xx-xxx-xxx-xx.us-west-2.compute.amazonaws.com:27017/restdb'
+app.config['MONGO_DBNAME'] = 'restdb2'
+app.config['MONGO_URI'] = 'mongodb://ec2-xx-xxx-xxx-xx.us-west-2.compute.amazonaws.com:27017/restdb2'
 app.config.from_object('config')
 mongo = PyMongo()
 mongo.init_app(app)
