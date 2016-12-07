@@ -255,11 +255,12 @@ function plotDirections(places){
                    // Hide image container
                     $("#loader").hide();
                 },
-				 error: function (jqXHR, status) {
+				error: function (jqXHR, status) {
 						console.log(status);
+						$('#canvas-map').append('<div class="alert alert-danger" role="alert"><strong>We are unable to display your best optimized route at this point.</strong>Please try submitting again.</div>');
 					  // error handler
 					  //console.log("failure:"+ status);
-				 }
+				}
 			});
 
 			/*$.post("http://localhost:5000/fetchPrices",JSON.stringify(inData),
