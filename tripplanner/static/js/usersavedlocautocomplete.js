@@ -3,17 +3,6 @@
 
     $(document).ready(function () {
         var count = 0;
-        //Adds dynamic textbox on plus icon click
-        $('#addlocation1').click(function () {
-            console.log("Added Location Textbox");
-			count++;
-			$('#location').append('<div class="form-group"><div class="col-xs-12"><a id="remove'+count+'" title ="Delete via Location" onclick="removeTextbox(this)"><i class="fa fa-times-circle-o fa-1x" style="color:white;"></i></a><div class="form-group"><label for="start" class="control-label col-sm-3">Name</label><div class="col-sm-8"><input type="text" class="form-control" id="start'+count+'" name="location" placeholder="Name of Location" /></div></div><div class="form-group"><label for="end" class="control-label col-sm-3">Address</label><div class="col-sm-8"><input type="text" class="form-control" id="end'+count+'" name="location" placeholder="Address" list="locationsList" onInput="createdatalist(this)" onchange="validateData(this)" /></div></div></div>');
-        });
-
-
-        // TO DO :  FETCH USER'S SAVED LOCATIONS
-        // DUMMY DATA
-
         //Fetch useremail from cookies
         console.log("cookies : " + document.cookie);
 
