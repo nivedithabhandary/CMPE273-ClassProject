@@ -82,9 +82,11 @@ def delete_location(email):
   global g_mongo_handle
   location = g_mongo_handle.db.locations
   name = request.json[0]['name']
+  mail = request.json[0]['email'][1:-1]
+  print name
   output = None
 
-  for s in location.find({'email' : email}):
+  for s in location.find({'email' : mail}):
     locations = s['locations']
     loc = locations.pop(name,None)
     if loc is None:
