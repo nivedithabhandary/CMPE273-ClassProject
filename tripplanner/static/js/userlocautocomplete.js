@@ -26,8 +26,8 @@
             var output = JSON.parse(data);
             if (output.length > 0) {
                 locationsdata = output[0].locations
-                    //console.log(locationsdata);
-                    //console.log(locationsdata.locations);
+                    console.log(locationsdata);
+                    console.log(locationsdata.locations);
                 userLocations = Object.keys(locationsdata);
                 //console.log(userLocations);
                 // Add User saved Locations to the datalist

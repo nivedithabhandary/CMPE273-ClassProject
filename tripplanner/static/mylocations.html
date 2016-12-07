@@ -121,7 +121,7 @@
     </header> -->
 
     <section class="bg-primary" id="savefrequentvisits">
-        <div class="container">
+        <div id ="containerDiv" class="container">
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 text-center">
                     <h2 class="section-heading">Add Locations you travel to frequently </h2>
@@ -150,7 +150,10 @@
                             <div class="col-xs-12">
                                 <!--<button type="submit " class="page-scroll btn btn-default btn-xl sr-button "><i class="fa fa-car "></i> Plan my Trip</button> -->
                                 <!--<a id="planmytrip " href="#tripmap " class="btn btn-default btn-xl sr-button page-scroll "><i class="fa fa-car "></i>  Plan my Trip</a>-->
-                                <input id="savelocations" type="button " class="btn btn-default btn-xl sr-button page-scroll " value="Save Locations"
+                                <input id="savelocations" type="button " class="btn btn-default btn-xl sr-button page-scroll " value="Save Locations"/>
+                            </div>
+							<div id="deleteLocationDiv" style="visibility: hidden; padding-top: 5px" class="col-xs-12">
+                                <input id="deletelocation" type="button"  class="btn btn-default btn-xl" value="Delete Location"/>
                             </div>
                         </div>
                         <datalist id="locationsList"></datalist>
@@ -161,7 +164,51 @@
         </div>
     </section>
 
-    <section id="contact">
+    <div class="customContainer">
+		<script type="text/javascript">
+		</script>
+		<script>
+			function clickFunction1(){
+				document.getElementById("nameOfAddress").value = document.getElementById("loc1").value;
+				document.getElementById("address").value = document.getElementById("loc1addr").value;
+				document.getElementById("savelocations").value = "Update Location";
+				document.getElementById("deleteLocationDiv").style.visibility='visible';
+			}
+			
+			function clickFunction2(){
+				document.getElementById("nameOfAddress").value = document.getElementById("loc2").value;
+				document.getElementById("address").value = document.getElementById("loc2addr").value;
+				document.getElementById("savelocations").value = "Update Location";
+				document.getElementById("deleteLocationDiv").style.visibility='visible';
+			}
+			
+			function clickFunction3(){
+				document.getElementById("nameOfAddress").value = document.getElementById("loc3").value;
+				document.getElementById("address").value = document.getElementById("loc3addr").value;
+				document.getElementById("savelocations").value = "Update Location";
+				document.getElementById("deleteLocationDiv").style.visibility='visible';
+			}
+			
+			function clickFunction4(){
+				document.getElementById("nameOfAddress").value = document.getElementById("loc4").value;
+				document.getElementById("address").value = document.getElementById("loc4addr").value;
+				document.getElementById("savelocations").value = "Update Location";
+				document.getElementById("deleteLocationDiv").style.visibility='visible';
+			}
+		</script>
+   		<div id="locationsDiv" style="width: 100%;">
+ 			<button id = "loc1" class="customWell col-sm-2 text-center" style="float: center;" onclick="clickFunction1()">No location added</button>
+			<button id = "loc1addr" class="customWell col-sm-2 text-center" style="float: center; display: none">No location added</button>
+			<button id = "loc2" class="customWell col-sm-2 text-center" style="float: center;" onclick="clickFunction2()">No location added</button>
+			<button id = "loc2addr" class="customWell col-sm-2 text-center" style="float: center; display: none">No location added</button>
+			<button id = "loc3" class="customWell col-sm-2 text-center" style="float: center;" onclick="clickFunction3()">No location added</button>
+			<button id = "loc3addr" class="customWell col-sm-2 text-center" style="float: center; display: none">No location added</button>
+			<button id = "loc4" class="customWell col-sm-2 text-center" style="float: center;" onclick="clickFunction4()">No location added</button>
+			<button id = "loc4addr" class="customWell col-sm-2 text-center" style="float: center; display: none">No location added</button>
+		</div>
+    </div>
+
+    <section id="contact" style="background-color: #c5c2c5;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
@@ -190,7 +237,7 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2cJt7fFPBGiGCBfhO1J_EBjVQzTwGduI&libraries=places" async defer></script>
 
     <!-- custom JavaScript -->
-    <!--<script src="../static/js/tripplanner.js "></script>-->
+    <script src="../static/js/tripplanner.js "></script>
 	<script src="../static/js/savelocations.js "></script>
     <script src="../static/js/usersavedlocautocomplete.js "></script>
 
