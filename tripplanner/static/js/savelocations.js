@@ -21,21 +21,41 @@ function loadPrevLocations(useremail) {
 					console.log("count",location);
 							if(count == 0) {
 								document.getElementById("loc1").innerHTML = location;
-								document.getElementById("loc1").value = location;
-								document.getElementById("loc1addr").value = locationsdata[location];
+								if(document.getElementById("loc1").innerHTML !== ""){
+									console.log("inside loc1");
+									document.getElementById("loc1").style.visibility='visible';
+									document.getElementById("loc1").value = location;
+									document.getElementById("loc1addr").value = locationsdata[location];
+								}
 							} else if(count == 1) {
 								document.getElementById("loc2").innerHTML = location;
-								document.getElementById("loc2").value = location;
-								document.getElementById("loc2addr").value = locationsdata[location];
+								if(document.getElementById("loc2").innerHTML !== ""){
+									document.getElementById("loc2").style.visibility='visible';
+									document.getElementById("loc2").value = location;
+									document.getElementById("loc2addr").value = locationsdata[location];
+								}
 							} else if(count == 2) {
 								document.getElementById("loc3").innerHTML = location;
-								document.getElementById("loc3").value = location;
-								document.getElementById("loc3addr").value = locationsdata[location];
+								if(document.getElementById("loc3").innerHTML !== ""){
+									document.getElementById("loc3").style.visibility='visible';
+									document.getElementById("loc3").value = location;
+									document.getElementById("loc3addr").value = locationsdata[location];
+								}
 							} else if(count == 3) {
 								document.getElementById("loc4").innerHTML = location;
-								document.getElementById("loc4").value = location;
-								document.getElementById("loc4addr").value = locationsdata[location];
-							}	
+								if(document.getElementById("loc4").innerHTML !== ""){
+									document.getElementById("loc4").style.visibility='visible';
+									document.getElementById("loc4").value = location;
+									document.getElementById("loc4addr").value = locationsdata[location];
+								}
+							} else if(count == 4) {
+								document.getElementById("loc5").innerHTML = location;
+								if(document.getElementById("loc5").innerHTML !== ""){
+									document.getElementById("loc5").style.visibility='visible';
+									document.getElementById("loc5").value = location;
+									document.getElementById("loc5addr").value = locationsdata[location];
+								}
+							}		
 							count++;
                     //$("#locationsList").append('<option id="userloc" value="' + locationsdata[location] + '">' + location + '</option>')
                 });

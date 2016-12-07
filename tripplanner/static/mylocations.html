@@ -141,9 +141,6 @@
                                 <input type="text" class="form-control" id="address" name="location" placeholder="Address" list="locationsList" onInput="createdatalist(this)" onchange="validateData(this)" />
                             </div>
                         </div>
-                        <div class=" form-group">
-                            <a id="addlocation1" title="Add Location"><i class="fa fa-plus-square fa-2x " style=color:white></i></a>
-                        </div>
                         <div id="location">
                         </div>
                         <div class="form-group">
@@ -195,16 +192,25 @@
 				document.getElementById("savelocations").value = "Update Location";
 				document.getElementById("deleteLocationDiv").style.visibility='visible';
 			}
+			
+			function clickFunction5(){
+				document.getElementById("nameOfAddress").value = document.getElementById("loc5").value;
+				document.getElementById("address").value = document.getElementById("loc5addr").value;
+				document.getElementById("savelocations").value = "Update Location";
+				document.getElementById("deleteLocationDiv").style.visibility='visible';
+			}
 		</script>
    		<div id="locationsDiv" style="width: 100%;">
- 			<button id = "loc1" class="customWell col-sm-2 text-center" style="float: center;" onclick="clickFunction1()">No location added</button>
+ 			<button id = "loc1" class="customWell col-sm-2 text-center" style="float: center; visibility: hidden" onclick="clickFunction1()">No location added</button>
 			<button id = "loc1addr" class="customWell col-sm-2 text-center" style="float: center; display: none">No location added</button>
-			<button id = "loc2" class="customWell col-sm-2 text-center" style="float: center;" onclick="clickFunction2()">No location added</button>
+			<button id = "loc2" class="customWell col-sm-2 text-center" style="float: center; visibility: hidden" onclick="clickFunction2()">No location added</button>
 			<button id = "loc2addr" class="customWell col-sm-2 text-center" style="float: center; display: none">No location added</button>
-			<button id = "loc3" class="customWell col-sm-2 text-center" style="float: center;" onclick="clickFunction3()">No location added</button>
+			<button id = "loc3" class="customWell col-sm-2 text-center" style="float: center; visibility: hidden" onclick="clickFunction3()">No location added</button>
 			<button id = "loc3addr" class="customWell col-sm-2 text-center" style="float: center; display: none">No location added</button>
-			<button id = "loc4" class="customWell col-sm-2 text-center" style="float: center;" onclick="clickFunction4()">No location added</button>
+			<button id = "loc4" class="customWell col-sm-2 text-center" style="float: center; visibility: hidden" onclick="clickFunction4()">No location added</button>
 			<button id = "loc4addr" class="customWell col-sm-2 text-center" style="float: center; display: none">No location added</button>
+			<button id = "loc5" class="customWell col-sm-2 text-center" style="float: center; visibility: hidden" onclick="clickFunction5()">No location added</button>
+			<button id = "loc5addr" class="customWell col-sm-2 text-center" style="float: center; display: none">No location added</button>
 		</div>
     </div>
 
