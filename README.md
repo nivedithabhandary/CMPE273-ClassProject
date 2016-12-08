@@ -11,3 +11,5 @@ User location details are stored into a persistent MongoDB hosted on EC2 instanc
 * Rahul Bharadwaj Vudutala - Providing Optimized Route, Fetching data from Uber API and optimize, Saving User Locations UI
 * Niveditha Bhandary - MongoDB setup, REST API call (Location APIs), Google Oauth authentication
 
+#### Challenges that we faced:
+* 
