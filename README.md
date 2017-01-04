@@ -1,4 +1,4 @@
-# CMPE273-ClassProject
+# Trip Planner
 Trip Planner using Uber vs Lyft's Price Estimation
 
 Plan a trip which consists of a set of places and estimate the total cost between Uber and Lyft.
